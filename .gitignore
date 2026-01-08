@@ -38,6 +38,12 @@ dist-ssr
 .env.test.local
 .env.production.local
 
+# Configuration files with sensitive info
+config.js
+config.json
+local.config.js
+local.config.json
+
 # Temporary files
 *.tmp
 *.temp

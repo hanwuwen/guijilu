@@ -44,7 +44,7 @@
 3. 在 `app.js` 中替换 `env` 为你的云开发环境 ID：  
    ```javascript  
    wx.cloud.init({
-     env: 'prod-xxxxx', // 替换为你的云开发环境ID
+     env: 'your-cloud-env-id', // 请替换为你的云开发环境ID
      traceUser: true
    })
    ```  

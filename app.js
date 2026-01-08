@@ -3,7 +3,7 @@ App({
   onLaunch() {
     // 云开发环境初始化
     wx.cloud.init({
-      env: 'prod-xxxxx', // 替换为你的云开发环境ID
+      env: 'your-cloud-env-id', // 请替换为你的云开发环境ID
       traceUser: true
     })
 
