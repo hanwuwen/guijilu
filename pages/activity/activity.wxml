@@ -64,25 +64,26 @@
         <view class="comment-input-section">
           <input class="comment-input" placeholder="写下你的评论..." bindinput="onCommentInput" value="{{commentContent}}"/>
           <button class="comment-submit-btn" bindtap="submitComment">发表评论</button>
-      </view>
-      <view class="comments-list">
-        <block wx:for="{{comments}}" wx:key="index">
-          <view class="comment-item">
-            <view class="comment-avatar">
-              <text class="avatar-text">{{item.userInfo.nickName?.charAt(0) || '用'}}</text>
-            </view>
-            <view class="comment-content">
-              <text class="comment-username">{{item.userInfo.nickName || '用户'}}</text>
-              <text class="comment-text">{{item.content}}</text>
-              <text class="comment-time">{{item.createdAt}}</text>
-              <view class="comment-actions">
-                <text class="comment-like" bindtap="likeComment" data-id="{{item._id}}">
-                  {{item.liked ? '❤️' : '🤍'}} {{item.likes || 0}}
-                </text>
+        </view>
+        <view class="comments-list">
+          <block wx:for="{{comments}}" wx:key="index">
+            <view class="comment-item">
+              <view class="comment-avatar">
+                <text class="avatar-text">{{item.userInfo.nickName?.charAt(0) || '用'}}</text>
+              </view>
+              <view class="comment-content">
+                <text class="comment-username">{{item.userInfo.nickName || '用户'}}</text>
+                <text class="comment-text">{{item.content}}</text>
+                <text class="comment-time">{{item.createdAt}}</text>
+                <view class="comment-actions">
+                  <text class="comment-like" bindtap="likeComment" data-id="{{item._id}}">
+                    {{item.liked ? '❤️' : '🤍'}} {{item.likes || 0}}
+                  </text>
+                </view>
               </view>
             </view>
-          </view>
-        </block>
+          </block>
+        </view>
       </view>
     </view>
 
