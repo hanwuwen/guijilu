@@ -1,0 +1,19 @@
+{
+  "name": "updateUserInfo",
+  "version": "1.0.0",
+  "description": "更新用户信息",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "user",
+    "update",
+    "cloudfunction"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "wx-server-sdk": "latest"
+  }
+}

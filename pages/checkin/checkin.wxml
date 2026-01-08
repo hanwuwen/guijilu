@@ -1,0 +1,79 @@
+<!--checkin.wxml-->
+<view class="container">
+  <!-- 加载中 -->
+  <view wx:if="{{loading}}" class="loading">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- 打卡页面 -->
+  <view wx:else>
+    <!-- 打卡地点信息 -->
+    <view class="card">
+      <text class="section-title">打卡地点</text>
+      <view class="checkpoint-info">
+        <text class="checkpoint-name">{{checkpoint.name}}</text>
+        <text class="checkpoint-desc">{{checkpoint.description}}</text>
+        <text class="checkpoint-location">{{checkpoint.location.name}}</text>
+        <text class="checkpoint-address">{{checkpoint.location.address}}</text>
+      </view>
+    </view>
+
+    <!-- 当前位置信息 -->
+    <view class="card">
+      <text class="section-title">当前位置</text>
+      <view class="location-info">
+        <text class="location-text">{{currentLocation.name || '获取位置中...'}}</text>
+        <text class="location-address">{{currentLocation.address || ''}}</text>
+        <view class="distance-info" wx:if="{{distance !== null}}">
+          <text class="distance-text">距离打卡点: {{distance}}米</text>
+          <text class="distance-status {{distance <= 500 ? 'valid' : 'invalid'}}">
+            {{distance <= 500 ? '✅ 距离有效' : '❌ 距离过远'}}
+          </text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 打卡表单 -->
+    <view class="card">
+      <text class="section-title">打卡记录</text>
+      <textarea 
+        class="checkin-note" 
+        placeholder="写下你的打卡心得..." 
+        value="{{checkinNote}}"
+        bindinput="onNoteInput"
+      />
+      
+      <!-- 图片上传 -->
+      <view class="upload-section">
+        <text class="upload-title">添加图片 (最多3张)</text>
+        <view class="upload-list">
+          <block wx:for="{{checkinImages}}" wx:key="index">
+            <view class="upload-item">
+              <image class="upload-image" src="{{item}}" mode="aspectFill" />
+              <view class="upload-remove" bindtap="removeImage" data-index="{{index}}">×</view>
+            </view>
+          </block>
+          <view 
+            wx:if="{{checkinImages.length < 3}}" 
+            class="upload-add" 
+            bindtap="chooseImage"
+          >
+            <text class="upload-add-icon">+</text>
+            <text class="upload-add-text">添加图片</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部操作栏 -->
+    <view class="bottom-bar">
+      <button 
+        class="checkin-btn" 
+        bindtap="submitCheckin" 
+        disabled="{{!canCheckin}}"
+      >
+        {{canCheckin ? '立即打卡' : '距离过远，无法打卡'}}
+      </button>
+    </view>
+  </view>
+</view>

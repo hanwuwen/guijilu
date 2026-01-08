@@ -1,0 +1,18 @@
+{
+  "name": "submitCheckin",
+  "version": "1.0.0",
+  "description": "提交打卡记录",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "checkin",
+    "cloudfunction"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "wx-server-sdk": "latest"
+  }
+}

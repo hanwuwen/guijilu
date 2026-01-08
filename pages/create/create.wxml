@@ -1,0 +1,132 @@
+<!--create.wxml-->
+<view class="container">
+  <!-- 活动基本信息 -->
+  <view class="card">
+    <text class="title">活动基本信息</text>
+    
+    <!-- 活动名称 -->
+    <view class="form-item">
+      <text class="form-label">活动名称 *</text>
+      <input 
+        class="form-input" 
+        placeholder="请输入活动名称" 
+        value="{{activity.name}}" 
+        bindinput="onInputChange"
+        data-field="name"
+      />
+    </view>
+
+    <!-- 活动描述 -->
+    <view class="form-item">
+      <text class="form-label">活动描述 *</text>
+      <textarea 
+        class="form-textarea" 
+        placeholder="请输入活动描述" 
+        value="{{activity.description}}" 
+        bindinput="onInputChange"
+        data-field="description"
+      />
+    </view>
+
+    <!-- 活动城市 -->
+    <view class="form-item">
+      <text class="form-label">活动城市 *</text>
+      <input 
+        class="form-input" 
+        placeholder="请输入活动城市" 
+        value="{{activity.city}}" 
+        bindinput="onInputChange"
+        data-field="city"
+      />
+    </view>
+
+    <!-- 活动时间 -->
+    <view class="form-item">
+      <text class="form-label">活动时间 *</text>
+      <view class="date-picker">
+        <picker mode="date" value="{{activity.startDate}}" bindchange="onDateChange" data-field="startDate">
+          <view class="picker">开始日期: {{activity.startDate}}</view>
+        </picker>
+        <picker mode="date" value="{{activity.endDate}}" bindchange="onDateChange" data-field="endDate">
+          <view class="picker">结束日期: {{activity.endDate}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <!-- 活动封面 -->
+    <view class="form-item">
+      <text class="form-label">活动封面</text>
+      <view class="upload-section">
+        <image 
+          class="cover-image" 
+          src="{{activity.coverImage || 'https://via.placeholder.com/300x200?text=上传封面'}}" 
+          mode="aspectFill"
+        />
+        <button class="upload-btn" bindtap="uploadCover">上传封面</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 打卡地点 -->
+  <view class="card">
+    <view class="section-header">
+      <text class="subtitle">打卡地点 (最多20个)</text>
+      <text class="tip">{{checkpoints.length}}/20</text>
+    </view>
+
+    <!-- 打卡地点列表 -->
+    <view class="checkpoint-list">
+      <block wx:for="{{checkpoints}}" wx:key="index">
+        <view class="checkpoint-item">
+          <view class="checkpoint-index">{{index + 1}}</view>
+          <view class="checkpoint-info">
+            <input 
+              class="checkpoint-name" 
+              placeholder="地点名称" 
+              value="{{item.name}}" 
+              bindinput="onCheckpointChange"
+              data-index="{{index}}"
+              data-field="name"
+            />
+            <input 
+              class="checkpoint-desc" 
+              placeholder="地点描述" 
+              value="{{item.description}}" 
+              bindinput="onCheckpointChange"
+              data-index="{{index}}"
+              data-field="description"
+            />
+            <button class="location-btn" bindtap="selectLocation" data-index="{{index}}">
+              📍 选择位置
+            </button>
+            <text wx:if="{{item.location}}" class="location-text">
+              {{item.location.name}}
+            </text>
+          </view>
+          <button class="delete-btn" bindtap="deleteCheckpoint" data-index="{{index}}">
+            删除
+          </button>
+        </view>
+      </block>
+    </view>
+
+    <!-- 添加打卡地点 -->
+    <button 
+      wx:if="{{checkpoints.length < 20}}" 
+      class="add-checkpoint-btn" 
+      bindtap="addCheckpoint"
+    >
+      + 添加打卡地点
+    </button>
+    <text wx:else class="max-checkpoints">已达到最大打卡地点数量</text>
+  </view>
+
+  <!-- 提交按钮 -->
+  <button 
+    class="submit-btn" 
+    bindtap="submitActivity" 
+    disabled="{{submitting}}"
+  >
+    {{submitting ? '提交中...' : '发布活动'}}
+  </button>
+</view>

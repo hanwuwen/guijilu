@@ -1,0 +1,56 @@
+<!--index.wxml-->
+<view class="container">
+  <!-- 顶部搜索栏 -->
+  <view class="search-bar">
+    <input 
+      class="search-input" 
+      placeholder="搜索活动" 
+      bindinput="onSearchInput"
+    />
+    <button class="scan-btn" bindtap="scanCode">
+      <text class="scan-icon">📷</text>
+      <text class="scan-text">扫码加入</text>
+    </button>
+  </view>
+
+  <!-- 活动列表标题 -->
+  <view class="section-header">
+    <text class="section-title">热门活动</text>
+    <button class="more-btn" bindtap="loadMore">查看更多</button>
+  </view>
+
+  <!-- 活动列表 -->
+  <view class="activity-list">
+    <block wx:for="{{activities}}" wx:key="_id">
+      <view class="activity-item" bindtap="goToActivity" data-id="{{item._id}}">
+        <image 
+          class="activity-item-image" 
+          src="{{item.coverImage || 'https://via.placeholder.com/160x160?text=活动封面'}}" 
+          mode="aspectFill"
+        />
+        <view class="activity-item-content">
+          <text class="activity-item-title">{{item.name}}</text>
+          <text class="activity-item-desc">{{item.description}}</text>
+          <view class="activity-item-info">
+            <text class="info-item">📍 {{item.city}}</text>
+            <text class="info-item">👥 {{item.participants || 0}}人参与</text>
+            <text class="info-item">⏰ {{item.startDate}} - {{item.endDate}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!-- 空状态 -->
+    <view wx:if="{{activities.length === 0 && !loading}}" class="empty-state">
+      <text class="empty-icon">🎉</text>
+      <text class="empty-text">暂无活动</text>
+      <text class="empty-subtext">快来创建第一个活动吧！</text>
+      <button class="create-btn" bindtap="goToCreate">创建活动</button>
+    </view>
+
+    <!-- 加载中 -->
+    <view wx:if="{{loading}}" class="loading">
+      <text class="loading-text">加载中...</text>
+    </view>
+  </view>
+</view>

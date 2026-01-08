@@ -1,0 +1,197 @@
+/* index.wxss */
+
+/* 搜索栏 */
+.search-bar {
+  display: flex;
+  margin-bottom: 24rpx;
+  align-items: center;
+}
+
+.search-input {
+  flex: 1;
+  height: 72rpx;
+  padding: 0 24rpx;
+  background-color: #f5f5f5;
+  border-radius: 36rpx;
+  font-size: 26rpx;
+  margin-right: 16rpx;
+}
+
+.scan-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 120rpx;
+  height: 72rpx;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 12rpx;
+  font-size: 22rpx;
+}
+
+.scan-icon {
+  font-size: 32rpx;
+  margin-bottom: 4rpx;
+}
+
+.scan-text {
+  font-size: 20rpx;
+}
+
+/* 区域标题 */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+  padding: 0 8rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #333;
+}
+
+.more-btn {
+  font-size: 24rpx;
+  color: #3498db;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+/* 活动列表 */
+.activity-list {
+  flex: 1;
+}
+
+/* 活动列表项 */
+.activity-item {
+  display: flex;
+  padding: 24rpx;
+  background-color: #fff;
+  border-radius: 12rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.activity-item:active {
+  transform: scale(0.98);
+}
+
+.activity-item-image {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 8rpx;
+  margin-right: 20rpx;
+}
+
+.activity-item-content {
+  flex: 1;
+}
+
+.activity-item-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+  color: #333;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.activity-item-desc {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 12rpx;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.activity-item-info {
+  font-size: 22rpx;
+  color: #999;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 0;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 24rpx;
+}
+
+.empty-text {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12rpx;
+}
+
+.empty-subtext {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 32rpx;
+}
+
+.create-btn {
+  width: 200rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 36rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+/* 加载中 */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40rpx 0;
+}
+
+.loading-text {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 响应式调整 */
+@media (max-width: 375px) {
+  .activity-item-image {
+    width: 140rpx;
+    height: 140rpx;
+  }
+  
+  .activity-item-title {
+    font-size: 26rpx;
+  }
+  
+  .activity-item-desc {
+    font-size: 22rpx;
+  }
+}

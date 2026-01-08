@@ -1,0 +1,50 @@
+{
+  "pages": [
+    "pages/splash/splash",
+    "pages/index/index",
+    "pages/create/create",
+    "pages/activity/activity",
+    "pages/checkin/checkin",
+    "pages/profile/profile",
+    "pages/certificate/certificate"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#3498db",
+    "navigationBarTitleText": "城市漫游者",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#666",
+    "selectedColor": "#3498db",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home-active.png"
+      },
+      {
+        "pagePath": "pages/create/create",
+        "text": "创建",
+        "iconPath": "images/create.png",
+        "selectedIconPath": "images/create-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/profile.png",
+        "selectedIconPath": "images/profile-active.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于校验打卡位置是否在活动地点附近"
+    }
+  },
+  "sitemapLocation": "sitemap.json",
+  "cloud": true
+}

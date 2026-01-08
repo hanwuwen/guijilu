@@ -1,0 +1,252 @@
+/* activity.wxss */
+
+/* 活动封面 */
+.activity-cover {
+  width: 100%;
+  height: 400rpx;
+  object-fit: cover;
+}
+
+/* 活动标题 */
+.activity-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  margin-bottom: 16rpx;
+  color: #333;
+}
+
+/* 活动描述 */
+.activity-desc {
+  font-size: 26rpx;
+  line-height: 1.5;
+  color: #666;
+  margin-bottom: 20rpx;
+}
+
+/* 活动信息 */
+.activity-info {
+  font-size: 22rpx;
+  color: #999;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+}
+
+/* 区域标题 */
+.section-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-bottom: 20rpx;
+  color: #555;
+}
+
+/* 打卡地点列表 */
+.checkpoint-list {
+  margin-bottom: 16rpx;
+}
+
+.checkpoint-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  background-color: #f9f9f9;
+  border-radius: 12rpx;
+  margin-bottom: 16rpx;
+  transition: transform 0.2s ease;
+}
+
+.checkpoint-item:active {
+  transform: scale(0.98);
+}
+
+.checkpoint-index {
+  width: 48rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  text-align: center;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 24rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.checkpoint-info {
+  flex: 1;
+}
+
+.checkpoint-name {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-bottom: 4rpx;
+  color: #333;
+}
+
+.checkpoint-desc {
+  display: block;
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 4rpx;
+}
+
+.checkpoint-location {
+  display: block;
+  font-size: 22rpx;
+  color: #999;
+}
+
+.checkpoint-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 16rpx;
+}
+
+.status-dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 8rpx;
+  margin-bottom: 4rpx;
+}
+
+.status-dot.pending {
+  background-color: #f39c12;
+}
+
+.status-dot.completed {
+  background-color: #27ae60;
+}
+
+.status-text {
+  font-size: 22rpx;
+  color: #999;
+}
+
+/* 二维码区域 */
+.qrcode-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24rpx 0;
+}
+
+.qrcode {
+  width: 300rpx;
+  height: 300rpx;
+  margin-bottom: 16rpx;
+}
+
+.qrcode-text {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 20rpx;
+}
+
+.share-btn {
+  width: 200rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+}
+
+/* 底部操作栏 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  padding: 20rpx;
+  box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.join-btn {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.progress-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.progress-text {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 12rpx;
+}
+
+.checkin-btn {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  background-color: #27ae60;
+  color: #fff;
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.certificate-btn {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  background-color: #9b59b6;
+  color: #fff;
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+/* 加载动画 */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 600rpx;
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 响应式调整 */
+@media (max-width: 375px) {
+  .activity-cover {
+    height: 300rpx;
+  }
+  
+  .activity-title {
+    font-size: 32rpx;
+  }
+  
+  .checkpoint-index {
+    width: 40rpx;
+    height: 40rpx;
+    line-height: 40rpx;
+    font-size: 24rpx;
+  }
+}

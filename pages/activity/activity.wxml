@@ -1,0 +1,89 @@
+<!--activity.wxml-->
+<view class="container">
+  <!-- 加载中 -->
+  <view wx:if="{{loading}}" class="loading">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- 活动详情 -->
+  <view wx:else>
+    <!-- 活动封面 -->
+    <image 
+      class="activity-cover" 
+      src="{{activity.coverImage || 'https://via.placeholder.com/750x400?text=活动封面'}}" 
+      mode="aspectFill"
+    />
+
+    <!-- 活动基本信息 -->
+    <view class="card">
+      <text class="activity-title">{{activity.name}}</text>
+      <text class="activity-desc">{{activity.description}}</text>
+      <view class="activity-info">
+        <text class="info-item">📍 {{activity.city}}</text>
+        <text class="info-item">👥 {{activity.participants || 0}}人参与</text>
+        <text class="info-item">⏰ {{activity.startDate}} - {{activity.endDate}}</text>
+      </view>
+    </view>
+
+    <!-- 打卡地点列表 -->
+    <view class="card">
+      <text class="section-title">打卡地点</text>
+      <view class="checkpoint-list">
+        <block wx:for="{{activity.checkpoints}}" wx:key="index">
+          <view class="checkpoint-item" bindtap="goToCheckin" data-index="{{index}}">
+            <view class="checkpoint-index">{{index + 1}}</view>
+            <view class="checkpoint-info">
+              <text class="checkpoint-name">{{item.name}}</text>
+              <text class="checkpoint-desc">{{item.description}}</text>
+              <text class="checkpoint-location">{{item.location.name}}</text>
+            </view>
+            <view class="checkpoint-status">
+              <text class="status-dot {{userCheckins[index] ? 'completed' : 'pending'}}"></text>
+              <text class="status-text">{{userCheckins[index] ? '已打卡' : '未打卡'}}</text>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <!-- 活动二维码 -->
+    <view class="card">
+      <text class="section-title">分享活动</text>
+      <view class="qrcode-section">
+        <image class="qrcode" src="{{qrcode}}" mode="aspectFill" />
+        <text class="qrcode-text">扫描二维码加入活动</text>
+        <button class="share-btn" bindtap="shareActivity">分享给好友</button>
+      </view>
+    </view>
+
+    <!-- 底部操作栏 -->
+    <view class="bottom-bar">
+      <button 
+        wx:if="{{!isParticipant}}" 
+        class="join-btn" 
+        bindtap="joinActivity"
+      >
+        加入活动
+      </button>
+      <view wx:else class="progress-section">
+        <text class="progress-text">
+          已完成 {{completedCheckpoints}}/{{activity.checkpoints.length}} 个打卡点
+        </text>
+        <button 
+          wx:if="{{completedCheckpoints < activity.checkpoints.length}}" 
+          class="checkin-btn" 
+          bindtap="goToNextCheckin"
+        >
+          立即打卡
+        </button>
+        <button 
+          wx:else 
+          class="certificate-btn" 
+          bindtap="getCertificate"
+        >
+          领取证书
+        </button>
+      </view>
+    </view>
+  </view>
+</view>

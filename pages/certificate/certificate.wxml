@@ -1,0 +1,74 @@
+<!--certificate.wxml-->
+<view class="container">
+  <!-- 隐藏的画布，用于生成证书图片 -->
+  <canvas 
+    id="certificateCanvas" 
+    style="width: 750rpx; height: 1000rpx; position: absolute; top: -9999px; left: -9999px;" 
+  />
+
+  <!-- 加载中 -->
+  <view wx:if="{{loading}}" class="loading">
+    <text class="loading-text">生成证书中...</text>
+  </view>
+
+  <!-- 证书页面 -->
+  <view wx:else>
+    <!-- 证书卡片 -->
+    <view class="certificate-card">
+      <view class="certificate-header">
+        <text class="certificate-title">城市漫游者</text>
+        <text class="certificate-subtitle">CITY WANDERER</text>
+      </view>
+
+      <view class="certificate-content">
+        <text class="certificate-welcome">兹证明</text>
+        <text class="certificate-username">{{userInfo.nickName}}</text>
+        <text class="certificate-description">成功完成</text>
+        <text class="certificate-activity">{{activity.name}}</text>
+        <text class="certificate-checkpoints">共 {{activity.checkpoints.length}} 个打卡点</text>
+        <text class="certificate-date">完成时间: {{completionDate}}</text>
+      </view>
+
+      <view class="certificate-footer">
+        <image 
+          class="certificate-seal" 
+          src="https://via.placeholder.com/128x128?text=印章" 
+          mode="aspectFill"
+        />
+        <text class="certificate-valid">电子证书 · 永久有效</text>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="action-buttons">
+      <button 
+        class="save-btn" 
+        bindtap="saveCertificate"
+      >
+        保存证书
+      </button>
+      <button 
+        class="share-btn" 
+        bindtap="shareCertificate"
+      >
+        分享证书
+      </button>
+      <button 
+        class="back-btn" 
+        bindtap="goBack"
+      >
+        返回活动
+      </button>
+    </view>
+
+    <!-- 活动信息 -->
+    <view class="card">
+      <text class="section-title">活动信息</text>
+      <view class="activity-info">
+        <text class="info-item">📍 {{activity.city}}</text>
+        <text class="info-item">⏰ {{activity.startDate}} - {{activity.endDate}}</text>
+        <text class="info-item">👥 {{activity.participants || 0}}人参与</text>
+      </view>
+    </view>
+  </view>
+</view>

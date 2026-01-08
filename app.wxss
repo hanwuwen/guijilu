@@ -1,0 +1,267 @@
+/* app.wxss */
+
+/* 全局样式重置 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 全局字体和颜色 */
+page {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+/* 容器样式 */
+.container {
+  padding: 20rpx;
+  min-height: 100vh;
+}
+
+/* 卡片样式 */
+.card {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+/* 按钮样式 */
+.btn {
+  display: block;
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  margin: 20rpx 0;
+}
+
+.btn-primary {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.btn-secondary {
+  background-color: #ecf0f1;
+  color: #333;
+}
+
+/* 表单样式 */
+.form-item {
+  margin-bottom: 30rpx;
+}
+
+.form-label {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-bottom: 12rpx;
+  color: #555;
+}
+
+.form-input {
+  width: 100%;
+  height: 80rpx;
+  padding: 0 24rpx;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+}
+
+.form-textarea {
+  width: 100%;
+  min-height: 160rpx;
+  padding: 24rpx;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  resize: none;
+}
+
+/* 标题样式 */
+.title {
+  font-size: 36rpx;
+  font-weight: 700;
+  margin-bottom: 20rpx;
+  color: #333;
+}
+
+.subtitle {
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-bottom: 16rpx;
+  color: #555;
+}
+
+/* 文本样式 */
+.text {
+  font-size: 26rpx;
+  line-height: 1.5;
+  color: #666;
+}
+
+/* 提示信息 */
+.tip {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 8rpx;
+}
+
+/* 加载动画 */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400rpx;
+}
+
+/* 错误信息 */
+.error {
+  color: #e74c3c;
+  font-size: 24rpx;
+  margin-top: 8rpx;
+}
+
+/* 成功信息 */
+.success {
+  color: #27ae60;
+  font-size: 24rpx;
+  margin-top: 8rpx;
+}
+
+/* 图片样式 */
+.img {
+  width: 100%;
+  border-radius: 12rpx;
+}
+
+/* 头像样式 */
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 60rpx;
+  object-fit: cover;
+}
+
+/* 二维码样式 */
+.qrcode {
+  width: 300rpx;
+  height: 300rpx;
+  margin: 0 auto;
+}
+
+/* 证书样式 */
+.certificate {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 40rpx;
+  text-align: center;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 位置信息样式 */
+.location {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 8rpx;
+}
+
+/* 打卡状态样式 */
+.checkin-status {
+  display: inline-block;
+  padding: 4rpx 16rpx;
+  border-radius: 16rpx;
+  font-size: 20rpx;
+  font-weight: 600;
+}
+
+.checkin-status-completed {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.checkin-status-pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+/* 活动列表项样式 */
+.activity-item {
+  display: flex;
+  padding: 24rpx;
+  background-color: #fff;
+  border-radius: 12rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.activity-item-image {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 8rpx;
+  margin-right: 20rpx;
+}
+
+.activity-item-content {
+  flex: 1;
+}
+
+.activity-item-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+  color: #333;
+}
+
+.activity-item-desc {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 12rpx;
+  line-height: 1.4;
+}
+
+.activity-item-info {
+  font-size: 22rpx;
+  color: #999;
+}
+
+/* 底部操作栏 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  padding: 20rpx;
+  box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bottom-bar-btn {
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  margin: 0 10rpx;
+}
+
+/* 地图容器 */
+.map-container {
+  width: 100%;
+  height: 400rpx;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+}
