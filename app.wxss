@@ -1,26 +1,20 @@
-/* app.wxss */
-
-/* 全局样式重置 */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* 全局字体和颜色 */
 page {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   background-color: #f5f5f5;
   color: #333;
 }
 
-/* 容器样式 */
 .container {
   padding: 20rpx;
   min-height: 100vh;
 }
 
-/* 卡片样式 */
 .card {
   background-color: #fff;
   border-radius: 12rpx;
@@ -29,7 +23,6 @@ page {
   box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
 }
 
-/* 按钮样式 */
 .btn {
   display: block;
   width: 100%;
@@ -52,7 +45,6 @@ page {
   color: #333;
 }
 
-/* 表单样式 */
 .form-item {
   margin-bottom: 30rpx;
 }
@@ -84,7 +76,6 @@ page {
   resize: none;
 }
 
-/* 标题样式 */
 .title {
   font-size: 36rpx;
   font-weight: 700;
@@ -99,21 +90,18 @@ page {
   color: #555;
 }
 
-/* 文本样式 */
 .text {
   font-size: 26rpx;
   line-height: 1.5;
   color: #666;
 }
 
-/* 提示信息 */
 .tip {
   font-size: 24rpx;
   color: #999;
   margin-top: 8rpx;
 }
 
-/* 加载动画 */
 .loading {
   display: flex;
   justify-content: center;
@@ -121,27 +109,23 @@ page {
   height: 400rpx;
 }
 
-/* 错误信息 */
 .error {
   color: #e74c3c;
   font-size: 24rpx;
   margin-top: 8rpx;
 }
 
-/* 成功信息 */
 .success {
   color: #27ae60;
   font-size: 24rpx;
   margin-top: 8rpx;
 }
 
-/* 图片样式 */
 .img {
   width: 100%;
   border-radius: 12rpx;
 }
 
-/* 头像样式 */
 .avatar {
   width: 120rpx;
   height: 120rpx;
@@ -149,14 +133,12 @@ page {
   object-fit: cover;
 }
 
-/* 二维码样式 */
 .qrcode {
   width: 300rpx;
   height: 300rpx;
   margin: 0 auto;
 }
 
-/* 证书样式 */
 .certificate {
   background-color: #fff;
   border-radius: 12rpx;
@@ -165,7 +147,6 @@ page {
   box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
 }
 
-/* 位置信息样式 */
 .location {
   display: flex;
   align-items: center;
@@ -174,7 +155,6 @@ page {
   margin-top: 8rpx;
 }
 
-/* 打卡状态样式 */
 .checkin-status {
   display: inline-block;
   padding: 4rpx 16rpx;
@@ -193,7 +173,6 @@ page {
   color: #856404;
 }
 
-/* 活动列表项样式 */
 .activity-item {
   display: flex;
   padding: 24rpx;
@@ -233,7 +212,6 @@ page {
   color: #999;
 }
 
-/* 底部操作栏 */
 .bottom-bar {
   position: fixed;
   bottom: 0;
@@ -258,7 +236,6 @@ page {
   margin: 0 10rpx;
 }
 
-/* 地图容器 */
 .map-container {
   width: 100%;
   height: 400rpx;
