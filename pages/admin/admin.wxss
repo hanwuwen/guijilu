@@ -1,0 +1,97 @@
+/* admin.wxss */
+.admin-container {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding: 20rpx;
+}
+
+.admin-header {
+  background: linear-gradient(135deg, #3498db, #2c3e50);
+  border-radius: 20rpx;
+  padding: 40rpx;
+  margin-bottom: 30rpx;
+  color: white;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.admin-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.admin-subtitle {
+  font-size: 24rpx;
+  opacity: 0.9;
+}
+
+.admin-menu {
+  background-color: white;
+  border-radius: 20rpx;
+  padding: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+}
+
+.menu-section {
+  margin-bottom: 30rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  padding-left: 10rpx;
+  border-left: 4rpx solid #3498db;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 25rpx 15rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  transition: background-color 0.3s;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-item:hover {
+  background-color: #f9f9f9;
+}
+
+.menu-icon {
+  font-size: 40rpx;
+  margin-right: 20rpx;
+}
+
+.menu-text {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.menu-arrow {
+  font-size: 32rpx;
+  color: #999;
+}
+
+.admin-footer {
+  margin-top: 40rpx;
+  text-align: center;
+  color: #999;
+  font-size: 24rpx;
+  padding: 20rpx;
+}
+
+.footer-text {
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.footer-version {
+  font-size: 20rpx;
+  opacity: 0.8;
+}

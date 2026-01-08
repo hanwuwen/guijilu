@@ -6,7 +6,17 @@
     "pages/activity/activity",
     "pages/checkin/checkin",
     "pages/profile/profile",
-    "pages/certificate/certificate"
+    "pages/certificate/certificate",
+    "pages/checkin-records/checkin-records",
+    "pages/chat-list/chat-list",
+    "pages/chat/chat",
+    "pages/admin/admin",
+    "pages/admin/user-reports/user-reports",
+    "pages/admin/comment-management/comment-management",
+    "pages/admin/feedback-management/feedback-management",
+    "pages/admin/sensitive-word-management/sensitive-word-management",
+    "pages/admin/moderation-rules-management/moderation-rules-management",
+    "pages/feedback/feedback"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -31,6 +41,12 @@
         "text": "创建",
         "iconPath": "images/create.png",
         "selectedIconPath": "images/create-active.png"
+      },
+      {
+        "pagePath": "pages/chat-list/chat-list",
+        "text": "消息",
+        "iconPath": "images/message.png",
+        "selectedIconPath": "images/message-active.png"
       },
       {
         "pagePath": "pages/profile/profile",

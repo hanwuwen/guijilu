@@ -1,0 +1,56 @@
+<!-- comment-management.wxml -->
+<view class="container">
+  <view class="header">
+    <text class="header-title">评论管理</text>
+    <text class="header-subtitle">管理用户发布的评论</text>
+  </view>
+
+  <view class="search-bar">
+    <input 
+      class="search-input" 
+      placeholder="输入活动ID搜索评论" 
+      value="{{searchActivityId}}"
+      bindinput="onSearchInput"
+    />
+    <button class="search-btn" bindtap="searchComments">搜索</button>
+  </view>
+
+  <view class="comment-list">
+    <block wx:for="{{comments}}" wx:key="_id">
+      <view class="comment-item">
+        <view class="comment-header">
+          <view class="user-info">
+            <text class="nickname">{{item.userInfo.nickname}}</text>
+            <text class="comment-time">{{formatTime(item.createdAt)}}</text>
+          </view>
+          <button class="delete-btn" bindtap="deleteComment" data-id="{{item._id}}">
+            删除
+          </button>
+        </view>
+
+        <view class="comment-content">
+          <text class="content">{{item.content}}</text>
+        </view>
+
+        <view class="comment-meta">
+          <view class="activity-info">
+            <text class="label">所属活动:</text>
+            <text class="value">{{item.activityInfo.title}}</text>
+          </view>
+          <view class="like-count">
+            <text class="label">点赞数:</text>
+            <text class="value">{{item.likeCount || 0}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view wx:if="{{comments.length === 0}}" class="empty-state">
+    <text class="empty-text">暂无评论</text>
+  </view>
+
+  <view wx:if="{{loading}}" class="loading-state">
+    <text class="loading-text">加载中...</text>
+  </view>
+</view>

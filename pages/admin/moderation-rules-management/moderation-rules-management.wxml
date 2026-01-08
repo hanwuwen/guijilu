@@ -1,0 +1,71 @@
+<!-- moderation-rules-management.wxml -->
+<view class="container">
+  <view class="header">
+    <text class="title">审核规则管理</text>
+    <text class="subtitle">管理系统中的审核规则（正则表达式）</text>
+  </view>
+
+  <!-- 添加规则表单 -->
+  <view class="form-section">
+    <text class="section-title">添加审核规则</text>
+    <view class="form-item">
+      <text class="label">规则名称</text>
+      <input 
+        class="input" 
+        placeholder="请输入规则名称" 
+        value="{{newRule.name}}" 
+        bindinput="onNameInput"
+      />
+    </view>
+    <view class="form-item">
+      <text class="label">正则表达式</text>
+      <input 
+        class="input" 
+        placeholder="请输入正则表达式" 
+        value="{{newRule.pattern}}" 
+        bindinput="onPatternInput"
+      />
+    </view>
+    <view class="form-item">
+      <text class="label">描述</text>
+      <input 
+        class="input" 
+        placeholder="请输入规则描述" 
+        value="{{newRule.description}}" 
+        bindinput="onDescriptionInput"
+      />
+    </view>
+    <button class="add-button" bindtap="addModerationRule">添加规则</button>
+  </view>
+
+  <!-- 规则列表 -->
+  <view class="list-section">
+    <text class="section-title">审核规则列表</text>
+    <view class="search-bar">
+      <input 
+        class="search-input" 
+        placeholder="搜索规则名称" 
+        value="{{searchKeyword}}" 
+        bindinput="onSearchInput"
+      />
+      <button class="search-button" bindtap="searchRules">搜索</button>
+    </view>
+    
+    <view class="rule-list">
+      <view wx:for="{{rules}}" wx:key="_id" class="rule-item">
+        <view class="rule-info">
+          <text class="rule-name">{{item.name}}</text>
+          <text class="rule-pattern">{{item.pattern}}</text>
+          <text class="rule-description">{{item.description}}</text>
+        </view>
+        <view class="rule-actions">
+          <button class="edit-button" bindtap="editRule" data-id="{{item._id}}">编辑</button>
+          <button class="delete-button" bindtap="deleteRule" data-id="{{item._id}}">删除</button>
+        </view>
+      </view>
+      <view wx:if="{{rules.length === 0}}" class="empty-list">
+        <text>暂无审核规则</text>
+      </view>
+    </view>
+  </view>
+</view>

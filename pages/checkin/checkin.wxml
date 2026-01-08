@@ -76,4 +76,28 @@
       </button>
     </view>
   </view>
+
+  <!-- 打卡成功动画 -->
+  <view wx:if="{{showSuccessAnimation}}" class="success-animation">
+    <view class="success-container">
+      <view class="success-icon">📍</view>
+      <text class="success-title">打卡成功！</text>
+      <text class="success-subtitle">恭喜你完成了这个打卡点</text>
+      <!-- 等级提升提示 -->
+      <view class="success-level-info" wx:if="{{levelReward}}">
+        <text class="level-reward-text">🎁 获得经验值: +10</text>
+        <text class="level-up-text" wx:if="{{levelReward.levelUp}}">
+          🎉 恭喜升级！
+        </text>
+        <text class="level-info-text" wx:if="{{levelReward.newLevel}}">
+          当前等级: {{levelReward.newLevel.name}} Lv{{levelReward.newLevel.level}}
+        </text>
+      </view>
+      <view class="success-confetti">
+        <block wx:for="{{20}}" wx:key="index">
+          <view class="confetti" style="--i: {{index}};"></view>
+        </block>
+      </view>
+    </view>
+  </view>
 </view>

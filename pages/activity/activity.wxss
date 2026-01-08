@@ -30,11 +30,45 @@
   display: flex;
   flex-wrap: wrap;
   gap: 16rpx;
+  margin-bottom: 16rpx;
 }
 
 .info-item {
   display: flex;
   align-items: center;
+}
+
+/* 等级提示 */
+.level-tip {
+  margin-top: 16rpx;
+  padding: 16rpx;
+  background-color: #f5f5f5;
+  border-radius: 12rpx;
+  border-left: 4rpx solid #3498db;
+}
+
+.level-tip-content {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.level-tip-icon {
+  font-size: 32rpx;
+  flex-shrink: 0;
+}
+
+.level-tip-text {
+  flex: 1;
+  font-size: 24rpx;
+  color: #555;
+  line-height: 1.4;
+}
+
+.level-reward {
+  color: #27ae60;
+  font-weight: 500;
+  margin-left: 8rpx;
 }
 
 /* 区域标题 */
@@ -233,6 +267,114 @@
   color: #999;
 }
 
+/* 评论区 */
+.comments-section {
+  margin-bottom: 20rpx;
+}
+
+.comment-input-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24rpx;
+  padding: 12rpx;
+  background-color: #f9f9f9;
+  border-radius: 20rpx;
+}
+
+.comment-input {
+  flex: 1;
+  font-size: 24rpx;
+  padding: 12rpx;
+  background-color: #fff;
+  border-radius: 16rpx;
+  border: 1rpx solid #e0e0e0;
+}
+
+.comment-submit-btn {
+  width: 120rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 28rpx;
+  font-size: 22rpx;
+  margin-left: 12rpx;
+}
+
+.comments-list {
+  max-height: 500rpx;
+  overflow-y: auto;
+}
+
+.comment-item {
+  display: flex;
+  margin-bottom: 20rpx;
+  padding: 16rpx;
+  background-color: #f9f9f9;
+  border-radius: 12rpx;
+}
+
+.comment-avatar {
+  width: 64rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  text-align: center;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 32rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.avatar-text {
+  line-height: 64rpx;
+}
+
+.comment-content {
+  flex: 1;
+}
+
+.comment-username {
+  display: block;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4rpx;
+}
+
+.comment-text {
+  display: block;
+  font-size: 24rpx;
+  line-height: 1.4;
+  color: #666;
+  margin-bottom: 8rpx;
+}
+
+.comment-time {
+  display: block;
+  font-size: 20rpx;
+  color: #999;
+  margin-bottom: 8rpx;
+}
+
+.comment-actions {
+  display: flex;
+  align-items: center;
+}
+
+.comment-like {
+  font-size: 22rpx;
+  color: #999;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.comment-like:active {
+  color: #e74c3c;
+}
+
 /* 响应式调整 */
 @media (max-width: 375px) {
   .activity-cover {
@@ -248,5 +390,25 @@
     height: 40rpx;
     line-height: 40rpx;
     font-size: 24rpx;
+  }
+  
+  .comment-input {
+    font-size: 22rpx;
+  }
+  
+  .comment-submit-btn {
+    width: 100rpx;
+    font-size: 20rpx;
+  }
+  
+  .comment-avatar {
+    width: 56rpx;
+    height: 56rpx;
+    line-height: 56rpx;
+    font-size: 24rpx;
+  }
+  
+  .avatar-text {
+    line-height: 56rpx;
   }
 }

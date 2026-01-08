@@ -1,7 +1,7 @@
 <!-- splash.wxml -->
 <view class="splash-container">
-  <image class="splash-image" src="https://via.placeholder.com/750x1334?prompt=城市轨迹录%20地图%20路线%20探索%20现代风格%20蓝色调&image_size=landscape_16_9"></image>
-  <view class="splash-content">
+  <image class="splash-image fade-in" src="https://via.placeholder.com/750x1334?prompt=城市轨迹录%20地图%20路线%20探索%20现代风格%20蓝色调&image_size=landscape_16_9"></image>
+  <view class="splash-content fade-in-delay">
     <text class="splash-title">城市漫游者</text>
     <text class="splash-subtitle">探索城市的每一个角落</text>
     <button class="start-button" bindtap="goToHome">开始参与</button>

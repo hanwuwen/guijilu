@@ -150,7 +150,7 @@ Page({
           url: `/pages/activity/activity?id=${res.result.activityId}`
         })
       } else {
-        wx.showToast({ title: '创建失败', icon: 'none' })
+        wx.showToast({ title: res.result.error || '创建失败', icon: 'none' })
       }
     }).catch(err => {
       console.error('创建活动失败:', err)

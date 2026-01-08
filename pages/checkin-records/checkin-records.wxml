@@ -1,0 +1,73 @@
+<!--checkin-records.wxml-->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="header">
+    <text class="header-title">打卡记录</text>
+  </view>
+  
+  <!-- 等级信息 -->
+  <view wx:if="{{levelInfo}}" class="level-section">
+    <view class="level-badge" style="background-color: {{levelInfo.color}};">
+      <text class="level-icon">{{levelInfo.icon}}</text>
+      <text class="level-text">{{levelInfo.name}}</text>
+      <text class="level-number">Lv{{levelInfo.level}}</text>
+    </view>
+    <view class="level-progress">
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{levelInfo.progress}}%; background-color: {{levelInfo.color}};"></view>
+      </view>
+      <text class="progress-text">经验值: {{levelInfo.exp}}/{{levelInfo.maxExp}}</text>
+    </view>
+  </view>
+
+  <!-- 加载中 -->
+  <view wx:if="{{loading}}" class="loading">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- 打卡记录列表 -->
+  <view wx:else wx:if="{{records.length > 0}}" class="records-list">
+    <block wx:for="{{records}}" wx:key="_id">
+      <view class="record-item" bindtap="goToActivityDetail" data-id="{{item.activityId}}">
+        <!-- 活动信息 -->
+        <view class="record-header">
+          <text class="record-activity-name">{{item.activityName}}</text>
+          <text class="record-date">{{item.checkinDate}}</text>
+        </view>
+        
+        <!-- 打卡点信息 -->
+        <view class="record-checkpoint">
+          <text class="checkpoint-icon">📍</text>
+          <text class="checkpoint-name">{{item.checkpointName}}</text>
+        </view>
+        
+        <!-- 打卡内容 -->
+        <view class="record-content">
+          <text wx:if="{{item.note}}" class="record-note">{{item.note}}</text>
+          <text wx:else class="record-note-empty">无打卡心得</text>
+        </view>
+        
+        <!-- 打卡图片 -->
+        <view wx:if="{{item.images && item.images.length > 0}}" class="record-images">
+          <block wx:for="{{item.images}}" wx:key="index">
+            <image class="record-image" src="{{item}}" mode="aspectFill" bindtap="previewImage" data-index="{{index}}" data-images="{{item.images}}"/>
+          </block>
+        </view>
+        
+        <!-- 打卡位置 -->
+        <view class="record-location">
+          <text class="location-icon">🏙️</text>
+          <text class="location-text">{{item.locationName}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:else class="empty-state">
+    <text class="empty-icon">📝</text>
+    <text class="empty-title">暂无打卡记录</text>
+    <text class="empty-desc">快去参与活动，开始你的城市探索之旅吧！</text>
+    <button class="empty-btn" bindtap="goToHome">浏览活动</button>
+  </view>
+</view>

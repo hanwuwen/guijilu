@@ -1,0 +1,319 @@
+/* checkin-records.wxss */
+.container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+/* 页面标题 */
+.header {
+  background-color: #3498db;
+  color: white;
+  padding: 32rpx 24rpx;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.header-title {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+/* 等级信息 */
+.level-section {
+  padding: 20rpx;
+  background-color: white;
+  margin: 20rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.level-badge {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 20rpx;
+  border-radius: 12rpx;
+  color: white;
+  margin-bottom: 16rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.15);
+  animation: levelBadgeGlow 2s infinite alternate;
+}
+
+.level-icon {
+  font-size: 40rpx;
+}
+
+.level-text {
+  flex: 1;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.level-number {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.level-progress {
+  margin-top: 16rpx;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12rpx;
+  background-color: #f0f0f0;
+  border-radius: 6rpx;
+  overflow: hidden;
+  margin-bottom: 8rpx;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 6rpx;
+  position: relative;
+  animation: progressShine 2s infinite;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: progressShine 2s infinite;
+}
+
+.progress-text {
+  font-size: 22rpx;
+  color: #666;
+  text-align: right;
+}
+
+/* 动画效果 */
+@keyframes levelBadgeGlow {
+  from {
+    box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.2);
+  }
+  to {
+    box-shadow: 0 4rpx 16rpx rgba(255, 255, 255, 0.4);
+  }
+}
+
+@keyframes progressShine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* 加载中 */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.loading-text {
+  font-size: 32rpx;
+  color: #666;
+}
+
+/* 打卡记录列表 */
+.records-list {
+  padding: 20rpx;
+}
+
+.record-item {
+  background-color: white;
+  border-radius: 16rpx;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.record-item:hover {
+  transform: translateY(-4rpx);
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.15);
+}
+
+/* 活动信息 */
+.record-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16rpx;
+}
+
+.record-activity-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #2c3e50;
+  flex: 1;
+  margin-right: 16rpx;
+}
+
+.record-date {
+  font-size: 24rpx;
+  color: #7f8c8d;
+  white-space: nowrap;
+}
+
+/* 打卡点信息 */
+.record-checkpoint {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+  padding-left: 8rpx;
+}
+
+.checkpoint-icon {
+  font-size: 24rpx;
+  margin-right: 8rpx;
+}
+
+.checkpoint-name {
+  font-size: 28rpx;
+  color: #3498db;
+  font-weight: 500;
+}
+
+/* 打卡内容 */
+.record-content {
+  margin-bottom: 16rpx;
+  padding-left: 8rpx;
+}
+
+.record-note {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 40rpx;
+  word-break: break-word;
+}
+
+.record-note-empty {
+  font-size: 26rpx;
+  color: #999;
+  font-style: italic;
+}
+
+/* 打卡图片 */
+.record-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-bottom: 16rpx;
+  padding-left: 8rpx;
+}
+
+.record-image {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 8rpx;
+  display: block;
+}
+
+/* 打卡位置 */
+.record-location {
+  display: flex;
+  align-items: center;
+  padding-left: 8rpx;
+  padding-top: 16rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.location-icon {
+  font-size: 24rpx;
+  margin-right: 8rpx;
+}
+
+.location-text {
+  font-size: 24rpx;
+  color: #999;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 40rpx;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  margin-bottom: 32rpx;
+}
+
+.empty-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 16rpx;
+}
+
+.empty-desc {
+  font-size: 28rpx;
+  color: #7f8c8d;
+  margin-bottom: 48rpx;
+  line-height: 40rpx;
+}
+
+.empty-btn {
+  width: 280rpx;
+  height: 80rpx;
+  background-color: #3498db;
+  color: white;
+  font-size: 32rpx;
+  border-radius: 40rpx;
+  border: none;
+  box-shadow: 0 4rpx 12rpx rgba(52, 152, 219, 0.3);
+}
+
+.empty-btn:hover {
+  background-color: #2980b9;
+  transform: translateY(-2rpx);
+  box-shadow: 0 6rpx 16rpx rgba(52, 152, 219, 0.4);
+}
+
+/* 响应式调整 */
+@media (max-width: 375px) {
+  .record-item {
+    padding: 24rpx;
+  }
+  
+  .record-activity-name {
+    font-size: 30rpx;
+  }
+  
+  .record-date {
+    font-size: 22rpx;
+  }
+  
+  .checkpoint-name {
+    font-size: 26rpx;
+  }
+  
+  .record-note {
+    font-size: 24rpx;
+    line-height: 36rpx;
+  }
+  
+  .record-image {
+    width: 100rpx;
+    height: 100rpx;
+  }
+}

@@ -1,0 +1,73 @@
+<!-- chat-list.wxml -->
+<view class="container">
+  <!-- 顶部导航栏 -->
+  <view class="header">
+    <text class="title">消息</text>
+    <view class="right-btn" bindtap="createConversation">
+      <text class="icon">+</text>
+    </view>
+  </view>
+  
+  <!-- 对话列表 -->
+  <view class="conversation-list">
+    <view wx:if="{{loading}}" class="loading">
+      <text>加载中...</text>
+    </view>
+    <view wx:else>
+      <view wx:if="{{conversations.length === 0}}" class="empty-list">
+        <text>暂无消息</text>
+        <text class="tip">开始和其他用户聊天吧</text>
+      </view>
+      <view wx:else>
+        <!-- 对话项 -->
+        <view 
+          wx:for="{{conversations}}" 
+          wx:key="_id" 
+          class="conversation-item" 
+          bindtap="enterChat"
+          data-conversation="{{conversations[index]}}"
+        >
+          <!-- 头像 -->
+          <view class="avatar-container">
+            <view wx:if="{{conversations[index].type === 'single'}}" class="avatar">
+              <image 
+                src="{{conversations[index].otherParticipants[0].avatarUrl || '../../images/default-avatar.png'}}" 
+                mode="aspectFill"
+              ></image>
+            </view>
+            <view wx:else class="group-avatar">
+              <image 
+                wx:for="{{conversations[index].otherParticipants}}" 
+                wx:key="openid" 
+                wx:if="{{index < 3}}" 
+                src="{{conversations[index].otherParticipants[index].avatarUrl || '../../images/default-avatar.png'}}" 
+                mode="aspectFill"
+                class="group-avatar-item"
+                style="z-index: {{3 - index}}; transform: translate({{index * 12}}px, {{index * 12}}px);"
+              ></image>
+            </view>
+            <view wx:if="{{conversations[index].unreadCount > 0}}" class="unread-badge">
+              <text>{{conversations[index].unreadCount}}</text>
+            </view>
+          </view>
+          
+          <!-- 对话信息 -->
+          <view class="conversation-info">
+            <view class="top-row">
+              <text class="name">
+                {{conversations[index].type === 'single' ? conversations[index].otherParticipants[0].nickName : conversations[index].name}}
+              </text>
+              <text class="time">{{conversations[index].lastMessageTime}}</text>
+            </view>
+            <view class="bottom-row">
+              <text class="last-message" wx:if="{{conversations[index].lastMessage}}">
+                {{conversations[index].lastMessage.senderOpenid === openid ? '我: ' : ''}}{{conversations[index].lastMessage.content}}
+              </text>
+              <text class="last-message" wx:else>暂无消息</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

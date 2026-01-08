@@ -74,6 +74,21 @@ exports.main = async (event, context) => {
       }
     }
 
+    // 检测违规内容
+    if (note) {
+      const noteModeration = await cloud.callFunction({
+        name: 'contentModeration',
+        data: { content: note }
+      })
+
+      if (!noteModeration.result.success || !noteModeration.result.result.passed) {
+        return {
+          success: false,
+          error: '打卡备注包含违规内容'
+        }
+      }
+    }
+
     // 创建打卡记录
     const checkin = {
       activityId,
@@ -84,10 +99,23 @@ exports.main = async (event, context) => {
       images,
       location,
       distance,
-      createdAt: new Date()
+      createdAt: new Date(),
+      moderationStatus: 'passed'
     }
 
     await db.collection('checkins').add({ data: checkin })
+
+    // 更新用户的总打卡次数
+    await db.collection('users').where({ openid }).update({
+      data: {
+        totalCheckins: _.inc(1)
+      }
+    })
+
+    // 触发等级计算
+    await cloud.callFunction({
+      name: 'calculateLevel'
+    })
 
     return {
       success: true,

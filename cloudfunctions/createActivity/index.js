@@ -26,6 +26,31 @@ exports.main = async (event, context) => {
       }
     }
 
+    // 检测违规内容
+    const nameModeration = await cloud.callFunction({
+      name: 'contentModeration',
+      data: { content: name }
+    })
+
+    if (!nameModeration.result.success || !nameModeration.result.result.passed) {
+      return {
+        success: false,
+        error: '活动名称包含违规内容'
+      }
+    }
+
+    const descriptionModeration = await cloud.callFunction({
+      name: 'contentModeration',
+      data: { content: description }
+    })
+
+    if (!descriptionModeration.result.success || !descriptionModeration.result.result.passed) {
+      return {
+        success: false,
+        error: '活动描述包含违规内容'
+      }
+    }
+
     // 创建活动
     const activity = {
       name,
@@ -38,10 +63,23 @@ exports.main = async (event, context) => {
       creator: openid,
       participants: [openid],
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      moderationStatus: 'passed'
     }
 
     const result = await db.collection('activities').add({ data: activity })
+
+    // 更新用户的总活动数
+    await db.collection('users').where({ openid }).update({
+      data: {
+        totalActivities: _.inc(1)
+      }
+    })
+
+    // 触发等级计算
+    await cloud.callFunction({
+      name: 'calculateLevel'
+    })
 
     return {
       success: true,

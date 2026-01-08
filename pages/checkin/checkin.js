@@ -9,7 +9,9 @@ Page({
     distance: null,
     canCheckin: false,
     checkinNote: '',
-    checkinImages: []
+    checkinImages: [],
+    showSuccessAnimation: false,
+    levelReward: null
   },
 
   onLoad(options) {
@@ -161,21 +163,68 @@ Page({
     }).then(res => {
       wx.hideLoading()
       if (res.result.success) {
-        wx.showToast({ 
-          title: '打卡成功', 
-          icon: 'success',
-          duration: 2000
-        })
+        // 获取用户等级信息
+        this.getUserLevelInfo()
+        // 显示打卡成功动画
+        this.showCheckinSuccessAnimation()
         setTimeout(() => {
           wx.navigateBack()
-        }, 2000)
+        }, 3000)
       } else {
-        wx.showToast({ title: '打卡失败', icon: 'none' })
+        wx.showToast({ title: res.result.error || '打卡失败', icon: 'none' })
       }
     }).catch(err => {
       console.error('提交打卡失败:', err)
       wx.hideLoading()
       wx.showToast({ title: '打卡失败', icon: 'none' })
     })
+  },
+
+  // 获取用户等级信息
+  getUserLevelInfo() {
+    wx.cloud.callFunction({
+      name: 'getUserInfo'
+    }).then(res => {
+      if (res.result.success) {
+        const userInfo = res.result.userInfo
+        this.setLevelRewardInfo(userInfo)
+      }
+    }).catch(err => {
+      console.error('获取用户信息失败:', err)
+    })
+  },
+
+  // 设置等级奖励信息
+  setLevelRewardInfo(userInfo) {
+    const { level = 1, exp = 0 } = userInfo
+    const levelExpConfig = [
+      { level: 1, minExp: 0, maxExp: 99, name: '漫游新手', color: '#999999', icon: '🌱' },
+      { level: 2, minExp: 100, maxExp: 299, name: '漫游探索者', color: '#66CCFF', icon: '🧭' },
+      { level: 3, minExp: 300, maxExp: 599, name: '漫游达人', color: '#9966FF', icon: '🏃' },
+      { level: 4, minExp: 600, maxExp: 999, name: '漫游精英', color: '#FF9966', icon: '🌟' },
+      { level: 5, minExp: 1000, maxExp: 1499, name: '漫游大师', color: '#FF6666', icon: '🏆' },
+      { level: 6, minExp: 1500, maxExp: 2999, name: '漫游专家', color: '#FF66B2', icon: '💎' },
+      { level: 7, minExp: 3000, maxExp: 4999, name: '漫游传奇', color: '#9933FF', icon: '⚡' },
+      { level: 8, minExp: 5000, maxExp: 7999, name: '漫游神话', color: '#FF3366', icon: '🔥' },
+      { level: 9, minExp: 8000, maxExp: 11999, name: '漫游圣徒', color: '#FFCC00', icon: '👑' },
+      { level: 10, minExp: 12000, maxExp: 999999, name: '漫游王者', color: '#FF6600', icon: '👑' }
+    ]
+    
+    const currentLevelConfig = levelExpConfig.find(l => l.level === level)
+    
+    this.setData({
+      levelReward: {
+        levelUp: true, // 假设每次打卡都可能升级
+        newLevel: currentLevelConfig
+      }
+    })
+  },
+
+  // 打卡成功动画
+  showCheckinSuccessAnimation() {
+    this.setData({ showSuccessAnimation: true })
+    setTimeout(() => {
+      this.setData({ showSuccessAnimation: false })
+    }, 2500)
   }
 })

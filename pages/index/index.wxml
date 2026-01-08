@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="container">
+<view class="container" bindscrolltolower="loadMore" bindscrolltoupper="onPullDownRefresh">
   <!-- 顶部搜索栏 -->
   <view class="search-bar">
     <input 
@@ -36,6 +36,24 @@
             <text class="info-item">👥 {{item.participants || 0}}人参与</text>
             <text class="info-item">⏰ {{item.startDate}} - {{item.endDate}}</text>
           </view>
+          <view class="activity-item-actions">
+            <button 
+              class="action-btn like-btn" 
+              bindtap="{{item.liked ? 'unlikeActivity' : 'likeActivity'}}" 
+              data-id="{{item._id}}"
+            >
+              <text class="action-icon">{{item.liked ? '❤️' : '🤍'}}</text>
+              <text class="action-text">{{item.likes || 0}}赞</text>
+            </button>
+            <button 
+              class="action-btn share-btn" 
+              bindtap="shareActivity" 
+              data-id="{{item._id}}"
+            >
+              <text class="action-icon">📤</text>
+              <text class="action-text">分享</text>
+            </button>
+          </view>
         </view>
       </view>
     </block>
@@ -51,6 +69,11 @@
     <!-- 加载中 -->
     <view wx:if="{{loading}}" class="loading">
       <text class="loading-text">加载中...</text>
+    </view>
+
+    <!-- 下拉刷新指示器 -->
+    <view wx:if="{{refreshing}}" class="refreshing">
+      <text class="refreshing-text">刷新中...</text>
     </view>
   </view>
 </view>

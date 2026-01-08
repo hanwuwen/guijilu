@@ -45,6 +45,18 @@ exports.main = async (event, context) => {
       }
     })
 
+    // 更新用户的总活动参与次数
+    await db.collection('users').where({ openid }).update({
+      data: {
+        totalActivities: _.inc(1)
+      }
+    })
+
+    // 触发等级计算
+    await cloud.callFunction({
+      name: 'calculateLevel'
+    })
+
     return {
       success: true,
       message: '加入活动成功'

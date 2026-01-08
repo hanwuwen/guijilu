@@ -23,7 +23,13 @@ exports.main = async (event, context) => {
         nickname: '城市漫游者',
         avatarUrl: 'https://via.placeholder.com/100',
         createdAt: new Date(),
-        certificates: []
+        certificates: [],
+        level: 1,
+        exp: 0,
+        totalCheckins: 0,
+        totalActivities: 0,
+        lastLevelUpdate: new Date(),
+        admin: false
       }
       
       await db.collection('users').add({ data: newUser })

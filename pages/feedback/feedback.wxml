@@ -1,0 +1,64 @@
+<!-- feedback.wxml -->
+<view class="feedback-container">
+  <view class="feedback-header">
+    <text class="feedback-title">用户反馈</text>
+    <text class="feedback-subtitle">请告诉我们您的想法</text>
+  </view>
+
+  <form bindsubmit="submitFeedback" class="feedback-form">
+    <view class="form-item">
+      <text class="form-label">反馈类型</text>
+      <view class="type-picker">
+        <view 
+          wx:for="{{feedbackTypes}}" 
+          wx:key="{{index}}"
+          class="type-item {{selectedType === item.value ? 'selected' : ''}}"
+          bindtap="selectType"
+          data-value="{{item.value}}"
+        >
+          <text class="type-text">{{item.label}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">反馈内容</text>
+      <textarea 
+        class="feedback-content" 
+        placeholder="请详细描述您的问题或建议..." 
+        placeholder-class="placeholder-text"
+        name="content"
+        value="{{content}}"
+        bindinput="onContentInput"
+        maxlength="500"
+      ></textarea>
+      <text class="word-count">{{content.length}}/500</text>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">联系方式 (选填)</text>
+      <input 
+        class="contact-input" 
+        placeholder="请留下您的联系方式，以便我们回复"
+        placeholder-class="placeholder-text"
+        name="contact"
+        value="{{contact}}"
+        bindinput="onContactInput"
+        maxlength="50"
+      ></input>
+    </view>
+
+    <button 
+      class="submit-btn" 
+      form-type="submit"
+      disabled="{{!content.trim()}}"
+      loading="{{submitting}}"
+    >
+      提交反馈
+    </button>
+  </form>
+
+  <view class="feedback-footer">
+    <text class="footer-text">感谢您的反馈，我们会认真对待每一条建议</text>
+  </view>
+</view>

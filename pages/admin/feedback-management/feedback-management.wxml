@@ -1,0 +1,186 @@
+<!-- feedback-management.wxml -->
+<view class="feedback-management-container">
+  <view class="feedback-header">
+    <text class="feedback-title">反馈管理</text>
+    <text class="feedback-subtitle">查看和处理用户反馈</text>
+  </view>
+
+  <view class="status-filter">
+    <view 
+      class="filter-item {{activeFilter === '' ? 'active' : ''}}"
+      bindtap="setFilter"
+      data-filter=""
+    >
+      <text class="filter-text">全部</text>
+    </view>
+    <view 
+      class="filter-item {{activeFilter === 'pending' ? 'active' : ''}}"
+      bindtap="setFilter"
+      data-filter="pending"
+    >
+      <text class="filter-text">未处理</text>
+      <view wx:if="unreadCount > 0" class="unread-badge">{{unreadCount}}</view>
+    </view>
+    <view 
+      class="filter-item {{activeFilter === 'read' ? 'active' : ''}}"
+      bindtap="setFilter"
+      data-filter="read"
+    >
+      <text class="filter-text">已读</text>
+    </view>
+    <view 
+      class="filter-item {{activeFilter === 'replied' ? 'active' : ''}}"
+      bindtap="setFilter"
+      data-filter="replied"
+    >
+      <text class="filter-text">已回复</text>
+    </view>
+  </view>
+
+  <view class="feedback-list">
+    <block wx:if="feedbackList.length > 0">
+      <view 
+        wx:for="{{feedbackList}}" 
+        wx:key="{{item._id}}"
+        class="feedback-item {{item.status === 'pending' ? 'unread' : ''}}"
+        bindtap="viewFeedbackDetail"
+        data-id="{{item._id}}"
+      >
+        <view class="feedback-header-info">
+          <text class="user-name">{{item.userName}}</text>
+          <text class="feedback-time">{{formatTime(item.createdAt)}}</text>
+          <view class="status-badge {{item.status}}">
+            {{getStatusText(item.status)}}
+          </view>
+        </view>
+        <text class="feedback-content">{{item.content}}</text>
+        <view wx:if="item.contact" class="feedback-contact">
+          <text class="contact-label">联系方式：</text>
+          <text class="contact-value">{{item.contact}}</text>
+        </view>
+        <view wx:if="item.reply" class="feedback-reply">
+          <text class="reply-label">回复：</text>
+          <text class="reply-content">{{item.reply}}</text>
+        </view>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="empty-state">
+        <text class="empty-icon">📝</text>
+        <text class="empty-text">暂无反馈</text>
+      </view>
+    </block>
+  </view>
+
+  <view wx:if="showPagination" class="pagination">
+    <text class="pagination-info">
+      第 {{currentPage}} 页，共 {{totalPages}} 页
+    </text>
+    <view class="pagination-buttons">
+      <button 
+        class="pagination-btn {{currentPage === 1 ? 'disabled' : ''}}"
+        bindtap="changePage"
+        data-page="{{currentPage - 1}}"
+        disabled="{{currentPage === 1}}"
+      >
+        上一页
+      </button>
+      <button 
+        class="pagination-btn {{currentPage === totalPages ? 'disabled' : ''}}"
+        bindtap="changePage"
+        data-page="{{currentPage + 1}}"
+        disabled="{{currentPage === totalPages}}"
+      >
+        下一页
+      </button>
+    </view>
+  </view>
+
+  <!-- 反馈详情弹窗 -->
+  <view wx:if="showDetail" class="detail-modal">
+    <view class="detail-content">
+      <view class="detail-header">
+        <text class="detail-title">反馈详情</text>
+        <text class="detail-close" bindtap="closeDetail">×</text>
+      </view>
+      <view class="detail-body">
+        <view class="detail-item">
+          <text class="detail-label">用户：</text>
+          <text class="detail-value">{{currentFeedback.userName}}</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-label">提交时间：</text>
+          <text class="detail-value">{{formatTime(currentFeedback.createdAt)}}</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-label">反馈类型：</text>
+          <text class="detail-value">{{getTypeText(currentFeedback.type)}}</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-label">联系方式：</text>
+          <text class="detail-value">{{currentFeedback.contact || '无'}}</text>
+        </view>
+        <view class="detail-item detail-content-item">
+          <text class="detail-label">反馈内容：</text>
+          <text class="detail-content-text">{{currentFeedback.content}}</text>
+        </view>
+        <view wx:if="currentFeedback.reply" class="detail-item detail-content-item">
+          <text class="detail-label">回复内容：</text>
+          <text class="detail-content-text reply-text">{{currentFeedback.reply}}</text>
+        </view>
+      </view>
+      <view class="detail-footer">
+        <button 
+          class="footer-btn secondary"
+          bindtap="markAsRead"
+          wx:if="currentFeedback.status === 'pending'"
+        >
+          标记已读
+        </button>
+        <button 
+          class="footer-btn primary"
+          bindtap="showReplyModal"
+          wx:if="currentFeedback.status !== 'replied'"
+        >
+          回复反馈
+        </button>
+        <button 
+          class="footer-btn secondary"
+          bindtap="closeDetail"
+        >
+          关闭
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 回复弹窗 -->
+  <view wx:if="showReply" class="reply-modal">
+    <view class="reply-content">
+      <view class="reply-header">
+        <text class="reply-title">回复反馈</text>
+        <text class="reply-close" bindtap="closeReplyModal">×</text>
+      </view>
+      <form bindsubmit="submitReply" class="reply-form">
+        <textarea 
+          class="reply-textarea" 
+          placeholder="请输入回复内容..." 
+          placeholder-class="placeholder-text"
+          name="reply"
+          value="{{replyContent}}"
+          bindinput="onReplyInput"
+          maxlength="500"
+        ></textarea>
+        <text class="word-count">{{replyContent.length}}/500</text>
+        <button 
+          class="submit-btn" 
+          form-type="submit"
+          disabled="{{!replyContent.trim()}}"
+          loading="{{submitting}}"
+        >
+          提交回复
+        </button>
+      </form>
+    </view>
+  </view>
+</view>

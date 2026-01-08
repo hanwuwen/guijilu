@@ -19,9 +19,30 @@
         <text class="avatar-upload">点击更换</text>
       </view>
       <view class="user-info">
-        <text class="username">{{userInfo.nickName || '未设置昵称'}}</text>
+        <view class="user-header">
+          <text class="username">{{userInfo.nickName || '未设置昵称'}}</text>
+          <view class="level-badge" style="background-color: {{levelInfo?.color || '#999999'}};">
+            <text class="level-icon">{{levelInfo?.icon || '🌱'}}</text>
+            <text class="level-text">{{levelInfo?.name || '漫游新手'}}</text>
+            <text class="level-number">Lv{{levelInfo?.level || 1}}</text>
+          </view>
+        </view>
         <text class="user-signature">{{userInfo.signature || '未设置签名'}}</text>
         <text class="user-city">{{userInfo.city || '未设置城市'}}</text>
+        
+        <!-- 等级进度条 -->
+        <view class="level-progress">
+          <view class="progress-info">
+            <text class="progress-text">经验值: {{levelInfo?.exp || 0}} / {{levelInfo?.nextLevelExp || 100}}</text>
+            <text class="progress-percent">{{levelInfo?.progress || 0}}%</text>
+          </view>
+          <view class="progress-bar">
+            <view 
+              class="progress-fill" 
+              style="width: {{levelInfo?.progress || 0}}%; background-color: {{levelInfo?.color || '#999999'}};"
+            ></view>
+          </view>
+        </view>
       </view>
     </view>
 
@@ -40,6 +61,43 @@
         <view class="stat-item">
           <text class="stat-number">{{stats.completed || 0}}</text>
           <text class="stat-label">完成的活动</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 成就面板 -->
+    <view class="card">
+      <text class="section-title">成就面板</text>
+      <view class="achievement-stats">
+        <view class="achievement-item">
+          <text class="achievement-icon">📍</text>
+          <text class="achievement-number">{{achievements.checkins || 0}}</text>
+          <text class="achievement-label">总打卡次数</text>
+        </view>
+        <view class="achievement-item">
+          <text class="achievement-icon">🏆</text>
+          <text class="achievement-number">{{achievements.badges || 0}}</text>
+          <text class="achievement-label">获得徽章</text>
+        </view>
+        <view class="achievement-item">
+          <text class="achievement-icon">🌟</text>
+          <text class="achievement-number">{{achievements.ranking || 0}}</text>
+          <text class="achievement-label">排行榜排名</text>
+        </view>
+      </view>
+      <view class="achievement-list">
+        <block wx:for="{{recentAchievements}}" wx:key="index">
+          <view class="achievement-card">
+            <text class="achievement-card-icon">{{item.icon}}</text>
+            <view class="achievement-card-content">
+              <text class="achievement-card-title">{{item.title}}</text>
+              <text class="achievement-card-desc">{{item.description}}</text>
+              <text class="achievement-card-date">{{item.date}}</text>
+            </view>
+          </view>
+        </block>
+        <view wx:if="recentAchievements.length === 0" class="empty-achievements">
+          <text class="empty-text">暂无成就，继续加油！</text>
         </view>
       </view>
     </view>
@@ -86,12 +144,20 @@
     <view class="card">
       <text class="section-title">其他</text>
       <view class="menu-list">
+        <view class="menu-item" bindtap="goToCheckinRecords">
+          <text class="menu-text">打卡记录</text>
+          <text class="menu-arrow">→</text>
+        </view>
         <view class="menu-item" bindtap="goToAbout">
           <text class="menu-text">关于我们</text>
           <text class="menu-arrow">→</text>
         </view>
         <view class="menu-item" bindtap="goToSettings">
           <text class="menu-text">设置</text>
+          <text class="menu-arrow">→</text>
+        </view>
+        <view wx:if="{{userInfo.admin}}" class="menu-item" bindtap="goToAdmin">
+          <text class="menu-text">管理员中心</text>
           <text class="menu-arrow">→</text>
         </view>
       </view>

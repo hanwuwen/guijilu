@@ -23,6 +23,17 @@
         <text class="info-item">👥 {{activity.participants || 0}}人参与</text>
         <text class="info-item">⏰ {{activity.startDate}} - {{activity.endDate}}</text>
       </view>
+      <!-- 等级提示 -->
+      <view class="level-tip" wx:if="{{levelInfo}}">
+        <view class="level-tip-content">
+          <text class="level-tip-icon">{{levelInfo.icon}}</text>
+          <text class="level-tip-text">
+            您当前等级：{{levelInfo.name}} Lv{{levelInfo.level}}
+            <text wx:if="{{!isParticipant}}" class="level-reward">（参与活动可获得20经验值）</text>
+            <text wx:else class="level-reward">（完成打卡可获得10经验值/次）</text>
+          </text>
+        </view>
+      </view>
     </view>
 
     <!-- 打卡地点列表 -->
@@ -40,6 +51,35 @@
             <view class="checkpoint-status">
               <text class="status-dot {{userCheckins[index] ? 'completed' : 'pending'}}"></text>
               <text class="status-text">{{userCheckins[index] ? '已打卡' : '未打卡'}}</text>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <!-- 评论区 -->
+    <view class="card">
+      <text class="section-title">评论区</text>
+      <view class="comments-section">
+        <view class="comment-input-section">
+          <input class="comment-input" placeholder="写下你的评论..." bindinput="onCommentInput" value="{{commentContent}}"/>
+          <button class="comment-submit-btn" bindtap="submitComment">发表评论</button>
+      </view>
+      <view class="comments-list">
+        <block wx:for="{{comments}}" wx:key="index">
+          <view class="comment-item">
+            <view class="comment-avatar">
+              <text class="avatar-text">{{item.userInfo.nickName?.charAt(0) || '用'}}</text>
+            </view>
+            <view class="comment-content">
+              <text class="comment-username">{{item.userInfo.nickName || '用户'}}</text>
+              <text class="comment-text">{{item.content}}</text>
+              <text class="comment-time">{{item.createdAt}}</text>
+              <view class="comment-actions">
+                <text class="comment-like" bindtap="likeComment" data-id="{{item._id}}">
+                  {{item.liked ? '❤️' : '🤍'}} {{item.likes || 0}}
+                </text>
+              </view>
             </view>
           </view>
         </block>

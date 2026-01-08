@@ -16,6 +16,24 @@ exports.main = async (event, context) => {
       }
     }
 
+    // 检测违规内容
+    const textFields = ['nickName', 'signature', 'description'] // 可能包含文本的字段
+    for (const field of textFields) {
+      if (userInfo[field] && typeof userInfo[field] === 'string') {
+        const contentModeration = await cloud.callFunction({
+          name: 'contentModeration',
+          data: { content: userInfo[field].trim() }
+        })
+        
+        if (!contentModeration.result.success || !contentModeration.result.result.passed) {
+          return {
+            success: false,
+            error: `用户信息中的${field}字段包含违规内容`
+          }
+        }
+      }
+    }
+
     // 更新用户信息
     await db.collection('users').where({ openid }).update({
       data: {

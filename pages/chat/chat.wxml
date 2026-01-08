@@ -1,0 +1,98 @@
+<!-- chat.wxml -->
+<view class="container">
+  <!-- 顶部导航栏 -->
+  <view class="header">
+    <view class="back-btn" bindtap="goBack">
+      <text>←</text>
+    </view>
+    <view class="title">
+      <text wx:if="{{conversationType === 'single' && otherUserInfo}}">{{otherUserInfo.nickName}}</text>
+      <text wx:else>{{conversationName || '聊天'}}</text>
+    </view>
+    <view class="placeholder"></view>
+  </view>
+  
+  <!-- 消息列表 -->
+  <scroll-view 
+    class="message-list" 
+    scroll-y 
+    bindscrolltolower="scrollToBottom"
+    scroll-top="{{scrollTop}}"
+  >
+    <view wx:if="{{messages.length === 0}}" class="empty-message">
+      <text>暂无消息</text>
+    </view>
+    <view wx:else>
+      <!-- 消息项 -->
+      <view 
+        wx:for="{{messages}}" 
+        wx:key="_id" 
+        class="message-item {{messages[index].senderOpenid === openid ? 'my-message' : 'other-message'}}"
+      >
+        <!-- 对方消息 -->
+        <view wx:if="{{messages[index].senderOpenid !== openid}}" class="message-content">
+          <view class="avatar">
+            <image src="{{messages[index].senderInfo.avatarUrl || '../../images/default-avatar.png'}}" mode="aspectFill"></image>
+          </view>
+          <view class="message-bubble left-bubble">
+            <text wx:if="{{messages[index].type === 'text'}}" class="message-text">{{messages[index].content}}</text>
+            <image wx:else-if="{{messages[index].type === 'image'}}" src="{{messages[index].content}}" mode="aspectFill" class="message-image"></image>
+          </view>
+        </view>
+        
+        <!-- 我的消息 -->
+        <view wx:else class="message-content right-content">
+          <view class="message-bubble right-bubble">
+            <text wx:if="{{messages[index].type === 'text'}}" class="message-text">{{messages[index].content}}</text>
+            <image wx:else-if="{{messages[index].type === 'image'}}" src="{{messages[index].content}}" mode="aspectFill" class="message-image"></image>
+          </view>
+          <view class="read-status">
+            <text wx:if="{{messages[index].readStatus && messages[index].readStatus[otherUserInfo.openid]}}" class="read">已读</text>
+            <text wx:else class="unread">未读</text>
+          </view>
+          <view class="avatar">
+            <image src="{{userInfo.avatarUrl || '../../images/default-avatar.png'}}" mode="aspectFill"></image>
+          </view>
+        </view>
+        
+        <!-- 消息时间 -->
+        <view class="message-time">
+          <text>{{messages[index].createdAt}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 加载更多 -->
+    <view wx:if="{{loading}}" class="loading-more">
+      <text>加载中...</text>
+    </view>
+  </scroll-view>
+  
+  <!-- 输入区域 -->
+  <view class="input-area">
+    <view class="input-tools">
+      <button class="tool-btn" bindtap="chooseImage">
+        <text class="tool-icon">🖼️</text>
+      </button>
+      <button class="tool-btn" bindtap="showEmojiPanel">
+        <text class="tool-icon">😊</text>
+      </button>
+    </view>
+    <input 
+      class="input" 
+      placeholder="输入消息..." 
+      value="{{inputValue}}" 
+      bindinput="inputChange"
+    ></input>
+    <button class="send-btn" bindtap="sendMessage">发送</button>
+  </view>
+  
+  <!-- 表情面板 -->
+  <view wx:if="{{showEmoji}}" class="emoji-panel">
+    <view class="emoji-list">
+      <view wx:for="{{emojis}}" wx:key="index" class="emoji-item" bindtap="selectEmoji" data-emoji="{{emojis[index]}}">
+        <text>{{emojis[index]}}</text>
+      </view>
+    </view>
+  </view>
+</view>

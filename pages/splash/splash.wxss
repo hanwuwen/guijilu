@@ -52,8 +52,41 @@
   border-radius: 50rpx;
   line-height: 100rpx;
   box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.start-button:hover {
+  background-color: #2980b9;
+  transform: scale(1.05);
+  box-shadow: 0 6rpx 16rpx rgba(0, 0, 0, 0.3);
 }
 
 .start-button::after {
   border-radius: 50rpx;
+}
+
+/* 淡入动画 */
+.fade-in {
+  animation: fadeIn 1.5s ease-in-out forwards;
+  opacity: 0;
+}
+
+.fade-in-delay {
+  animation: fadeIn 1.5s ease-in-out 0.5s forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.splash-content.fade-in-delay {
+  transform: scale(1);
 }

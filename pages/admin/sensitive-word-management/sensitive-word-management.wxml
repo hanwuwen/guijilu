@@ -1,0 +1,92 @@
+<!-- sensitive-word-management.wxml -->
+<view class="container">
+  <view class="header">
+    <text class="title">敏感词管理</text>
+    <text class="subtitle">管理系统中的敏感词列表</text>
+  </view>
+
+  <!-- 添加敏感词表单 -->
+  <view class="form-section">
+    <text class="section-title">添加敏感词</text>
+    <view class="form-item">
+      <text class="label">敏感词</text>
+      <input 
+        class="input" 
+        placeholder="请输入敏感词" 
+        value="{{newWord.word}}" 
+        bindinput="onWordInput"
+      />
+    </view>
+    <view class="form-item">
+      <text class="label">分类</text>
+      <picker 
+        class="picker" 
+        range="{{categories}}" 
+        value="{{newWord.categoryIndex}}" 
+        bindchange="onCategoryChange"
+      >
+        <text class="picker-text">{{categories[newWord.categoryIndex]}}</text>
+      </picker>
+    </view>
+    <button class="add-button" bindtap="addSensitiveWord">添加敏感词</button>
+  </view>
+
+  <!-- 敏感词列表 -->
+  <view class="list-section">
+    <text class="section-title">敏感词列表</text>
+    <view class="search-bar">
+      <input 
+        class="search-input" 
+        placeholder="搜索敏感词" 
+        value="{{searchKeyword}}" 
+        bindinput="onSearchInput"
+      />
+      <button class="search-button" bindtap="searchWords">搜索</button>
+    </view>
+    <view class="filter-bar">
+      <picker 
+        class="filter-picker" 
+        range="{{['全部'] + categories}}" 
+        value="{{filterCategoryIndex}}" 
+        bindchange="onFilterCategoryChange"
+      >
+        <text class="filter-text">分类: {{['全部'] + categories}[filterCategoryIndex]}}</text>
+      </picker>
+    </view>
+    
+    <view class="word-list">
+      <view wx:for="{{words}}" wx:key="_id" class="word-item">
+        <view class="word-info">
+          <text class="word-text">{{item.word}}</text>
+          <text class="category-tag">{{item.category}}</text>
+        </view>
+        <view class="word-actions">
+          <button class="edit-button" bindtap="editWord" data-id="{{item._id}}">编辑</button>
+          <button class="delete-button" bindtap="deleteWord" data-id="{{item._id}}">删除</button>
+        </view>
+      </view>
+      <view wx:if="{{words.length === 0}}" class="empty-list">
+        <text>暂无敏感词</text>
+      </view>
+    </view>
+
+    <!-- 分页 -->
+    <view wx:if="{{total > pageSize}}" class="pagination">
+      <button 
+        class="page-button" 
+        disabled="{{page === 1}}" 
+        bindtap="prevPage"
+      >
+        上一页
+      </button>
+      <text class="page-info">第 {{page}} 页，共 {{Math.ceil(total / pageSize)}} 页</text>
+      <button 
+        class="page-button" 
+        disabled="{{page * pageSize >= total}}" 
+        bindtap="nextPage"
+      >
+        下一页
+      </button>
+    </view>
+  </view>
+</view>

@@ -3,7 +3,13 @@ Page({
   data: {
     loading: true,
     userInfo: {},
-    stats: {}
+    stats: {},
+    achievements: {
+      checkins: 0,
+      badges: 0,
+      ranking: 0
+    },
+    recentAchievements: []
   },
 
   onLoad() {
@@ -26,10 +32,137 @@ Page({
           userInfo: res.result.userInfo,
           stats: res.result.stats
         })
+        // 计算等级进度
+        this.calculateLevelProgress(res.result.userInfo)
+      }
+      this.loadAchievements()
+    }).catch(err => {
+      console.error('加载用户信息失败:', err)
+      this.setData({ loading: false })
+    })
+  },
+
+  // 计算等级进度
+  calculateLevelProgress(userInfo) {
+    const { level = 1, exp = 0 } = userInfo
+    
+    // 等级经验配置
+    const levelExpConfig = [
+      { level: 1, minExp: 0, maxExp: 99 },
+      { level: 2, minExp: 100, maxExp: 299 },
+      { level: 3, minExp: 300, maxExp: 599 },
+      { level: 4, minExp: 600, maxExp: 999 },
+      { level: 5, minExp: 1000, maxExp: 1499 },
+      { level: 6, minExp: 1500, maxExp: 2499 },
+      { level: 7, minExp: 2500, maxExp: 3999 },
+      { level: 8, minExp: 4000, maxExp: 5999 },
+      { level: 9, minExp: 6000, maxExp: 8999 },
+      { level: 10, minExp: 9000, maxExp: 999999 }
+    ]
+    
+    const currentLevelConfig = levelExpConfig.find(l => l.level === level) || levelExpConfig[0]
+    const levelExpRange = currentLevelConfig.maxExp - currentLevelConfig.minExp
+    const currentLevelExp = exp - currentLevelConfig.minExp
+    const progress = Math.min(Math.round((currentLevelExp / levelExpRange) * 100), 100)
+    
+    // 等级名称和图标
+    const levelNames = [
+      { name: '漫游新手', icon: '🌱', color: '#999999' },
+      { name: '漫游探索者', icon: '🧭', color: '#66CCFF' },
+      { name: '漫游达人', icon: '🏃', color: '#9966FF' },
+      { name: '漫游精英', icon: '🌟', color: '#FF9966' },
+      { name: '漫游大师', icon: '🏆', color: '#FF6666' },
+      { name: '漫游专家', icon: '💎', color: '#FF66B2' },
+      { name: '漫游传奇', icon: '⚡', color: '#9933FF' },
+      { name: '漫游神话', icon: '🔥', color: '#FF3366' },
+      { name: '漫游圣徒', icon: '👑', color: '#FFCC00' },
+      { name: '漫游王者', icon: '👑', color: '#FF6600' }
+    ]
+    
+    const levelInfo = levelNames[Math.min(level - 1, levelNames.length - 1)] || levelNames[0]
+    
+    this.setData({
+      levelInfo: {
+        ...levelInfo,
+        level,
+        exp,
+        progress,
+        nextLevelExp: currentLevelConfig.maxExp + 1
+      }
+    })
+  },
+
+  // 加载成就数据
+  loadAchievements() {
+    wx.cloud.callFunction({
+      name: 'getUserAchievements'
+    }).then(res => {
+      if (res.result.success) {
+        this.setData({
+          achievements: res.result.achievements,
+          recentAchievements: res.result.recentAchievements
+        })
+      } else {
+        // 模拟数据，实际项目中应该从云函数获取
+        this.setData({
+          achievements: {
+            checkins: 12,
+            badges: 3,
+            ranking: 42
+          },
+          recentAchievements: [
+            {
+              icon: '🏅',
+              title: '首次参与',
+              description: '成功参与第一个城市探索活动',
+              date: '2024-01-15'
+            },
+            {
+              icon: '📍',
+              title: '打卡达人',
+              description: '完成10个打卡点',
+              date: '2024-01-18'
+            },
+            {
+              icon: '🌟',
+              title: '活动先锋',
+              description: '创建第一个活动',
+              date: '2024-01-20'
+            }
+          ]
+        })
       }
       this.setData({ loading: false })
     }).catch(err => {
-      console.error('加载用户信息失败:', err)
+      console.error('加载成就数据失败:', err)
+      // 模拟数据
+      this.setData({
+        achievements: {
+          checkins: 12,
+          badges: 3,
+          ranking: 42
+        },
+        recentAchievements: [
+          {
+            icon: '🏅',
+            title: '首次参与',
+            description: '成功参与第一个城市探索活动',
+            date: '2024-01-15'
+          },
+          {
+            icon: '📍',
+            title: '打卡达人',
+            description: '完成10个打卡点',
+            date: '2024-01-18'
+          },
+          {
+            icon: '🌟',
+            title: '活动先锋',
+            description: '创建第一个活动',
+            date: '2024-01-20'
+          }
+        ]
+      })
       this.setData({ loading: false })
     })
   },
@@ -138,6 +271,20 @@ Page({
       title: '设置',
       content: '功能开发中...',
       showCancel: false
+    })
+  },
+
+  // 前往打卡记录页面
+  goToCheckinRecords() {
+    wx.navigateTo({
+      url: '/pages/checkin-records/checkin-records'
+    })
+  },
+
+  // 前往管理员中心页面
+  goToAdmin() {
+    wx.navigateTo({
+      url: '/pages/admin/admin'
     })
   }
 })
